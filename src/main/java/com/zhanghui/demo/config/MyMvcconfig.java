@@ -21,7 +21,13 @@ public class MyMvcconfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public LocaleResolver localeResolver(){
-        return new MyLocalResolver();
+    public LocaleResolver localeResolver(){return new MyLocalResolver();}
+
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new loginHandlerIntercepter())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/index.html","/","/login","/css/**","/js/**","/img/**");
     }
 }

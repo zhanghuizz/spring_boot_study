@@ -8,12 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class login {
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String getlogin(@RequestParam("username") String username, @RequestParam("password")String password, Model model) {
+    public String getlogin(@RequestParam("username") String username,
+                           @RequestParam("password")String password,
+                           Model model,
+                           HttpSession session) {
+
         if (StringUtils.hasLength(username) && "123".equals(password)) {
+            session.setAttribute("loginUser",username);
             return "redirect:/main.html";
         } else {
             model.addAttribute("message","用户名或密码错误!");
